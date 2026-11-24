@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/* Design system: design-system/denguesathi/MASTER.md ("Accessible & Ethical", Bangla-first) */
+@theme {
+  --font-sans: var(--font-hind), ui-sans-serif, system-ui, sans-serif;
+  --color-risk-green: #15803d;
+  --color-risk-yellow: #a16207; /* yellow-700, 4.9:1 with white text (#ca8a04 was 2.9:1) */
+  --color-risk-red: #dc2626;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    line-height: 1.6;
+  }
+
+  /* Tailwind v4 resets buttons to cursor: default; every clickable thing should show a pointer. */
+  button:not(:disabled),
+  [role="button"],
+  summary,
+  label[for],
+  select {
+    cursor: pointer;
+  }
+
+  /* Visible keyboard focus on ANY background: dark teal outline + white halo between it and the control
+     (dark ring shows on light surfaces, white halo shows on teal/red/green surfaces). */
+  :focus-visible {
+    outline: 3px solid #134e4a;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px #fff;
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(220, 38, 38, 0);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.3s ease-out both;
+}
+
+/* Respect the OS "reduce motion" setting: no pulsing, sliding or spinning decoration. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Big, thumb-friendly controls (Tailwind v4 custom utilities). min-h-11 = 44px touch target. */
+@utility btn {
+  @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-2xl px-5 py-3 text-lg font-semibold transition-colors duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-primary {
+  @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-teal-700 px-5 py-3 text-lg font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-teal-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-outline {
+  @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-teal-700 bg-white px-5 py-3 text-lg font-semibold text-teal-800 transition-colors duration-200 hover:bg-teal-50 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-ghost {
+  @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-2xl px-5 py-3 text-lg font-semibold text-slate-700 transition-colors duration-200 hover:bg-slate-100 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility card {
+  @apply rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200;
+}
+@utility input {
+  @apply min-h-11 w-full rounded-xl border border-slate-500 bg-white px-3 py-2.5 text-lg text-slate-900 placeholder:text-slate-500 focus:border-teal-700 focus:ring-2 focus:ring-teal-700/30;
+}
+
+/* Landing hero backdrop: soft teal dots fading out toward the edges. */
+.hero-dots {
+  background-image: radial-gradient(
+    rgb(15 118 110 / 0.18) 1.2px,
+    transparent 1.2px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(
+    ellipse 70% 65% at 40% 45%,
+    #000 40%,
+    transparent 100%
+  );
+}
+
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+.leaflet-container {
+  font-family: inherit;
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    top: 0%;
+  }
+  50% {
+    top: calc(100% - 4px);
+  }
+}

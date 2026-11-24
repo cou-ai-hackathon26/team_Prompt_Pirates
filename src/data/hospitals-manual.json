@@ -1,0 +1,35 @@
+[
+  {
+    "id": "manual/noakhali-250-bed",
+    "name": "Noakhali 250 Bed General Hospital",
+    "nameBn": "নোয়াখালী ২৫০ শয্যা জেনারেল হাসপাতাল",
+    "lat": 22.8687,
+    "lng": 91.0994,
+    "phone": null,
+    "emergency": true,
+    "dengueCare": true,
+    "approx": true
+  },
+  {
+    "id": "manual/abdul-malek-ukil-mch",
+    "name": "Abdul Malek Ukil Medical College Hospital",
+    "nameBn": "আব্দুল মালেক উকিল মেডিকেল কলেজ হাসপাতাল",
+    "lat": 22.8615,
+    "lng": 91.0965,
+    "phone": null,
+    "emergency": true,
+    "dengueCare": true,
+    "approx": true
+  },
+  {
+    "id": "manual/companiganj-uhc",
+    "name": "Companiganj Upazila Health Complex",
+    "nameBn": "কোম্পানীগঞ্জ উপজেলা স্বাস্থ্য কমপ্লেক্স",
+    "lat": 22.8746,
+    "lng": 91.2853,
+    "phone": null,
+    "emergency": true,
+    "dengueCare": true,
+    "approx": true
+  }
+]

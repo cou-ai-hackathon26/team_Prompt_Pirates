@@ -1,0 +1,76 @@
+[
+  {
+    "id": "demo-day2-shapla",
+    "title": "Demo patient, fever day 2 (normal)",
+    "date": "2026-11-20",
+    "expected": {
+      "plateletUl": 160000,
+      "hctPct": 38,
+      "wbcUl": 4200,
+      "hbGdl": 12.8
+    }
+  },
+  {
+    "id": "demo-day4-shapla",
+    "title": "Demo patient, fever day 4 (platelets 45k, HCT up 21%: RED)",
+    "date": "2026-11-22",
+    "expected": {
+      "plateletUl": 45000,
+      "hctPct": 46,
+      "wbcUl": 3100,
+      "hbGdl": 14.6
+    }
+  },
+  {
+    "id": "meghna-analyzer-si",
+    "title": "Analyzer printout, x10^3/µL units (platelets 85k: YELLOW)",
+    "date": "2026-11-21",
+    "expected": {
+      "plateletUl": 85000,
+      "hctPct": 42.1,
+      "wbcUl": 3800,
+      "hbGdl": 12.9
+    }
+  },
+  {
+    "id": "padma-compact-kul",
+    "title": "Compact slip, K/uL units (normal)",
+    "date": "2026-11-19",
+    "expected": {
+      "plateletUl": 210000,
+      "hctPct": 40,
+      "wbcUl": 6400,
+      "hbGdl": 14.1
+    }
+  },
+  {
+    "id": "jamuna-si-10e9",
+    "title": "Hospital lab, x10^9/L units with flags (platelets 32k: RED)",
+    "date": "2026-11-22",
+    "expected": {
+      "plateletUl": 32000,
+      "hctPct": 49,
+      "wbcUl": 2900,
+      "hbGdl": 15.2
+    }
+  },
+  {
+    "id": "karnaphuli-range-trap",
+    "title": "Result printed after the reference range (tests column reading; platelets 1.2 lakh)",
+    "date": "2026-11-21",
+    "expected": {
+      "plateletUl": 120000,
+      "hctPct": 44,
+      "wbcUl": 5600,
+      "hbGdl": 13.2
+    }
+  },
+  {
+    "id": "not-cbc-ns1",
+    "title": "Dengue NS1 antigen report (NOT a CBC: app should say so)",
+    "date": "2026-11-20",
+    "expected": {
+      "isCbcReport": false
+    }
+  }
+]
