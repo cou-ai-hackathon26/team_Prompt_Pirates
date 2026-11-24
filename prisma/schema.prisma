@@ -1,0 +1,140 @@
+// DengueSathi data model.
+// Supabase: DATABASE_URL = pooled URL (port 6543, ?pgbouncer=true), DIRECT_URL = direct URL (port 5432).
+// Local Docker / Neon: set both to the same URL.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum RiskStatus {
+  GREEN
+  YELLOW
+  RED
+}
+
+enum CheckInSource {
+  VOICE
+  FORM
+}
+
+model Patient {
+  id          String   @id @default(cuid())
+  nickname    String
+  ageYears    Int
+  sex         String?
+  weightKg    Float?
+  /// pregnant | diabetes | kidney | heart | obesity (infant/elderly derived from age)
+  riskFactors String[]
+  area        String
+  feverStart  DateTime
+  isSynthetic Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  checkIns    CheckIn[]
+  labs        LabResult[]
+  assessments RiskAssessment[]
+  fluids      FluidLog[]
+  conflicts   DataConflict[]
+  access      PatientAccess[]
+
+  @@index([area])
+}
+
+model CheckIn {
+  id         String        @id @default(cuid())
+  patientId  String
+  patient    Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  createdAt  DateTime      @default(now())
+  source     CheckInSource
+  transcript String?
+  /// Validated Symptoms object (src/lib/ai/schemas.ts)
+  symptoms   Json
+
+  @@index([patientId, createdAt])
+}
+
+model LabResult {
+  id         String   @id @default(cuid())
+  patientId  String
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  takenAt    DateTime
+  plateletUl Int?
+  hctPct     Float?
+  wbcUl      Int?
+  hbGdl      Float?
+  confirmed  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([patientId, takenAt])
+}
+
+model RiskAssessment {
+  id         String      @id @default(cuid())
+  patientId  String
+  patient    Patient     @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  createdAt  DateTime    @default(now())
+  status     RiskStatus
+  ruleStatus RiskStatus
+  aiStatus   RiskStatus?
+  /// [{ source: "rule" | "ai", code, textBn }]
+  reasons    Json
+  adviceBn   String
+
+  @@index([patientId, createdAt])
+  @@index([status, createdAt])
+}
+
+model AiCache {
+  key       String   @id
+  response  Json
+  createdAt DateTime @default(now())
+}
+
+/// Oral fluid intake logged by the family (one row per glass / cup / ORS packet).
+model FluidLog {
+  id        String   @id @default(cuid())
+  patientId String
+  patient   Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  ml        Int
+  kind      String   @default("water") // water | ors | other
+
+  @@index([patientId, createdAt])
+}
+
+/// A contradiction or possible wrong-patient input, and what the family answered.
+/// See src/lib/risk/consistency.ts for the codes and the safety policy.
+model DataConflict {
+  id         String   @id @default(cuid())
+  patientId  String
+  patient    Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  source     String // VOICE | CBC
+  code       String
+  textBn     String
+  textEn     String
+  /// CONFIRMED_SAME = family said it is this patient | REJECTED_OTHER = another person, not saved | NOTED
+  resolution String
+
+  @@index([patientId, createdAt])
+}
+
+/// Optional family login: which Google accounts saved this patient (several family members may).
+/// Patient pages still open by link without login; this only powers "আমার রোগী" on any phone.
+model PatientAccess {
+  id        String   @id @default(cuid())
+  email     String
+  patientId String
+  patient   Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([email, patientId])
+  @@index([email])
+}

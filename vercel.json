@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm prisma generate && pnpm next build",
+  "regions": ["sin1"],
+  "functions": {
+    "src/app/api/trpc/[trpc]/route.ts": {
+      "maxDuration": 60
+    }
+  }
+}
