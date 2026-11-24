@@ -76,7 +76,7 @@ export default async function PatientPage({
           )}
         </div>
         <div className="mt-3 flex gap-1">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((d) => (
+          {Array.from({ length: Math.min(Math.max(8, day), 15) }, (_, i) => i + 1).map((d) => (
             <div
               key={d}
               className={`flex h-10 flex-1 items-center justify-center rounded-lg text-sm font-bold ${

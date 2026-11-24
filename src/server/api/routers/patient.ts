@@ -19,7 +19,11 @@ export const patientRouter = createTRPCRouter({
           .min(1)
           .refine(isValidArea, "Unknown area")
           .transform(resolveAreaId),
-        feverStart: z.coerce.date(),
+        // Up to 14 days ago (+1 day slack for time zones), never in the future.
+        feverStart: z.coerce
+          .date()
+          .refine((d) => d.getTime() <= Date.now() + 3600e3, "Fever start is in the future")
+          .refine((d) => d.getTime() >= Date.now() - 15 * 864e5, "Fever start is more than 14 days ago"),
       }),
     )
     .mutation(async ({ ctx, input }) => {
