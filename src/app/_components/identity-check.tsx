@@ -88,8 +88,22 @@ export function OtherPersonNotice({
             এই তথ্যে ডেঙ্গুর বিপদচিহ্ন আছে। তার জন্য আলাদা করে ডেঙ্গুসাথীতে নতুন রোগী যোগ করুন।
           </p>
           <div className="flex flex-wrap gap-2">
-            <a href="tel:16263" className="btn bg-white text-red-800">
-              <Phone className="size-5" aria-hidden /> ১৬২৬৩ (স্বাস্থ্য বাতায়ন)
+            {/* 999 = National Emergency Service (ambulance). 16263 = health advice line only. */}
+            {dangerIfOther === "RED" && (
+              <a href="tel:999" className="btn bg-white text-red-800">
+                <Phone className="size-5" aria-hidden /> অ্যাম্বুলেন্স ৯৯৯
+              </a>
+            )}
+            <a
+              href="tel:16263"
+              className={
+                dangerIfOther === "RED"
+                  ? "btn bg-white/15 text-white ring-1 ring-white/60"
+                  : "btn bg-white text-amber-800"
+              }
+            >
+              {dangerIfOther !== "RED" && <Phone className="size-5" aria-hidden />}
+              ডাক্তারের পরামর্শ ১৬২৬৩
             </a>
             <Link href="/new" className="btn bg-white/15 text-white ring-1 ring-white/60">
               নতুন রোগী যোগ করুন

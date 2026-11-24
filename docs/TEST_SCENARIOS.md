@@ -76,7 +76,7 @@ Sample reports used below are under CBC → "নমুনা রিপোর্�
 | # | Steps | Expected |
 |---|---|---|
 | E1 | Test patient "রহিম, 9, ছেলে" → CBC → sample **Hospital lab** (Sumaiya, 16 F, platelets 32k) → confirm | **"এই রিপোর্ট কি রহিম-এর?"** ("Is this report Rahim's?") with 3 differences (name, age 16 vs 9, female vs male). Nothing saved yet. |
-| E2 | E1 → **না, অন্য কারো** ("no, someone else") | Red box: **"যার রিপোর্ট, তাকে এখনই হাসপাতালে নিন"** ("take the person this report belongs to to hospital now"), 16263 button, "নতুন রোগী যোগ করুন" ("add a new patient"). Patient page: no report saved, status unchanged. |
+| E2 | E1 → **না, অন্য কারো** ("no, someone else") | Red box: **"যার রিপোর্ট, তাকে এখনই হাসপাতালে নিন"** ("take the person this report belongs to to hospital now"), **অ্যাম্বুলেন্স ৯৯৯** button (999 = National Emergency Service), "ডাক্তারের পরামর্শ ১৬২৬৩" (advice line, not an ambulance), "নতুন রোগী যোগ করুন" ("add a new patient"). Patient page: no report saved, status unchanged. |
 | E3 | E1 again → **হ্যাঁ, রহিম-এরই** ("yes, it's Rahim's") | Saved → **RED** (platelets 32k). Handoff card shows "Data conflicts … family confirmed it is this patient". |
 | E4 | Voice/typed: "আমার আব্বার কথা বলতেছি, বয়স ৬৫। আজ জ্বরের পাঁচ দিন…" ("I'm talking about my father, age 65. Today is day 5 of the fever…") on a 9-year-old | **"এই কথাগুলো কি রহিম-এর?"** ("Are these words about Rahim?"), showing "কথায় বয়স ৬৫ বছর, রোগীর বয়স ৯ বছর" ("the message says 65 years, the patient is 9"). |
 | E5 | Message about two children: "বড় ছেলের জ্বর, ছোটটার বমি" ("the elder son has fever, the younger one is vomiting") | Held: "কথায় একাধিক অসুস্থ মানুষের কথা আছে" ("the message mentions more than one sick person"). |

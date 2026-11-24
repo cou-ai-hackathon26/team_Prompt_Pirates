@@ -6,7 +6,7 @@ type Status = "GREEN" | "YELLOW" | "RED";
 const RANK: Record<Status, number> = { GREEN: 0, YELLOW: 1, RED: 2 };
 
 /** Patients whose fever started within this many days count as "active". */
-const ACTIVE_DAYS = 10;
+const ACTIVE_DAYS = 14;
 /** PROTOTYPE heuristic: share of YELLOW patients in fever day 3-6 expected to turn RED within 48 h. */
 const YELLOW_TO_RED_48H = 0.3;
 

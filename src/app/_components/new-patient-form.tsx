@@ -11,6 +11,9 @@ import { Check } from "lucide-react";
 
 export { STORAGE_KEY } from "~/lib/local-patients";
 
+/** Fever onset can be entered up to this many days ago (later than that, dengue is usually over). */
+const MAX_FEVER_DAYS_AGO = 14;
+
 const RISK_OPTIONS = [
   { id: "pregnant", label: "গর্ভবতী" },
   { id: "diabetes", label: "ডায়াবেটিস" },
@@ -159,7 +162,7 @@ export function NewPatientForm() {
           className="input"
         >
           <option value="0">আজ</option>
-          {[1, 2, 3, 4, 5, 6, 7].map((d) => (
+          {Array.from({ length: MAX_FEVER_DAYS_AGO }, (_, i) => i + 1).map((d) => (
             <option key={d} value={d}>
               {d.toLocaleString("bn-BD")} দিন আগে (আজ জ্বরের{" "}
               {(d + 1).toLocaleString("bn-BD")} নম্বর দিন)
